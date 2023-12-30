@@ -5,6 +5,8 @@ import Product from '../app/models/Product'
 import User from '../app/models/User'
 import Category from '../app/models/Category'
 
+import configDatabase from '../config/database'
+
 const models = [User, Product, Category]
 class Database {
   constructor() {
@@ -13,9 +15,7 @@ class Database {
   }
 
   init() {
-    this.connection = new Sequelize(
-      'postgresql://postgres:1GgbE6GdfA6-4-*bbcbBf2A5ADG1db63@roundhouse.proxy.rlwy.net:27343/railway',
-    )
+    this.connection = new Sequelize(configDatabase)
     models
       .map((model) => model.init(this.connection))
       .map(
@@ -25,7 +25,7 @@ class Database {
 
   mongo() {
     this.mongoConnection = mongoose.connect(
-      'mongodb://mongo:33D4Fhb6cEeB-CCF-5-Ah-gAbbEc-CHG@monorail.proxy.rlwy.net:15153',
+      'mongodb://localhost:27017/codeburguer',
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,
